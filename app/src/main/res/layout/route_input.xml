@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/style_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="20dp">
+
+    <TextView
+            android:id="@+id/label_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/start" />
+
+    <EditText
+            android:id="@+id/input_start_latitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/latitude"
+            android:inputType="numberSigned|numberDecimal"
+            android:layout_below="@+id/label_start"
+            android:autofillHints="no"
+            tools:targetApi="o" />
+
+    <EditText
+            android:id="@+id/input_start_longitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/longitude"
+            android:inputType="numberSigned|numberDecimal"
+            android:layout_below="@+id/input_start_latitude"
+            android:autofillHints="no"
+            tools:targetApi="o"/>
+
+    <Button
+            android:id="@+id/btn_set_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/input_start_longitude"
+            android:text="@string/set_start"
+            android:visibility="gone" />
+
+    <TextView
+            android:id="@+id/label_destination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/destination"
+            android:layout_below="@+id/btn_set_start"
+            android:layout_marginTop="20dp"/>
+
+    <EditText
+            android:id="@+id/input_destination_latitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/latitude"
+            android:inputType="numberSigned|numberDecimal"
+            android:layout_below="@+id/label_destination"
+            android:autofillHints="no"
+            tools:targetApi="o"/>
+
+    <EditText
+            android:id="@+id/input_destination_longitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/longitude"
+            android:inputType="numberSigned|numberDecimal"
+            android:layout_below="@+id/input_destination_latitude"
+            android:autofillHints="no"
+            tools:targetApi="o"/>
+
+    <Button
+            android:id="@+id/btn_set_destination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/input_destination_longitude"
+            android:text="@string/set_destination"
+            android:visibility="gone" />
+
+    <Button
+            android:id="@+id/btn_navigate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/calculate"
+            android:layout_below="@+id/btn_set_destination"/>
+
+</RelativeLayout>
