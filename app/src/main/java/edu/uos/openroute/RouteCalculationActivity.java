@@ -13,20 +13,43 @@ import org.osmdroid.util.GeoPoint;
 
 import java.util.ArrayList;
 
+/**
+ * This activity calculates a route between two points in the background while showing an waiting animation.
+ */
 public class RouteCalculationActivity extends AppCompatActivity {
 
-    public final static String START = "START";
-    public final static String DESTINATION = "DESTINATION";
+    /**
+     * Named constants for required data of the activity provided in the bundle on create.
+     */
+    public final static String START = "START", DESTINATION = "DESTINATION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_calculation);
 
+        // Load the required data for this activity
         Bundle data = this.getIntent().getExtras();
-        new RouteCalculator(this, (Position) data.get(START), (Position) data.get(DESTINATION), new OpenRouteServiceManager(getString(R.string.OpenRouteServiceAPIKey))).execute();
+        if (data != null) {
+            Position start = (Position) data.get(START);
+            Position destination = (Position) data.get(DESTINATION);
+            RoadManager roadManager = new OpenRouteServiceManager(getString(R.string.OpenRouteServiceAPIKey));
+
+            // Check all required data is available ...
+            if (start != null && destination != null) {
+                // ... and start the calculate asynchronously in background.
+                new RouteCalculator(this, start, destination, roadManager).execute();
+                return;
+            }
+        }
+
+        // Fail, if the required data is not provided.
+        throw new IllegalArgumentException("Required extras for the activity are missing!");
     }
 
+    /**
+     * The asynchronously route calculation running in the background.
+     */
     private static class RouteCalculator extends AsyncTask<Void, Void, Road> {
         private final RoadManager roadManager;
         private final Position start, destination;
@@ -41,21 +64,30 @@ public class RouteCalculationActivity extends AppCompatActivity {
 
         @Override
         protected Road doInBackground(Void... nothing) {
+            // Prepare the inputs
             ArrayList<GeoPoint> points = new ArrayList<>();
-            points.add(new GeoPoint(start.getLatitude(), start.getLongitude()));
-            points.add(new GeoPoint(destination.getLatitude(), destination.getLongitude()));
+            points.add(start.toGeoPoint());
+            points.add(destination.toGeoPoint());
+
+            // Calculate the route
             return roadManager.getRoad(points);
         }
 
         @Override
         protected void onPostExecute(Road road) {
+            // If the calculation was not successful ...
             if (road == null) {
+                // ... return to the previous activity ...
                 this.activity.finish();
+                this.activity = null;
                 return;
             }
 
+            // ... , otherwise visualize the route in a new activity.
             Intent viewIntent = new Intent(activity, RouteViewer.class);
             viewIntent.putExtra(RouteViewer.ROAD, road);
+            viewIntent.putExtra(RouteViewer.START, start);
+            viewIntent.putExtra(RouteViewer.DESTINATION, destination);
             activity.startActivity(viewIntent);
         }
     }
