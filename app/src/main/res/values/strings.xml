@@ -5,6 +5,7 @@
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
     <string name="calculate">Navigate!</string>
+    <string name="calculation_failed">Unable to calculate the route. Are you online? Are you using an valid API key?</string>
     <string name="marker">Latitude: %1$s\nLongitude: %2$s</string>
     <string name="set_start">Set current location as starting point</string>
     <string name="set_destination">Set current location as destination</string>
