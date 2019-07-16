@@ -21,7 +21,7 @@ public class RouteCalculationActivity extends AppCompatActivity {
     /**
      * Named constants for required data of the activity provided in the bundle on create.
      */
-    public final static String START = "START", DESTINATION = "DESTINATION";
+    public final static String START = "START", DESTINATION = "DESTINATION", PROFILE = "PROFILE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +33,12 @@ public class RouteCalculationActivity extends AppCompatActivity {
         if (data != null) {
             Position start = (Position) data.get(START);
             Position destination = (Position) data.get(DESTINATION);
-            RoadManager roadManager = new OpenRouteServiceManager(getString(R.string.OpenRouteServiceAPIKey));
+            OpenRouteServiceManager.Profile profile = (OpenRouteServiceManager.Profile) data.get(PROFILE);
 
             // Check all required data is available ...
-            if (start != null && destination != null) {
+            if (start != null && destination != null && profile != null) {
+                RoadManager roadManager = new OpenRouteServiceManager(getString(R.string.OpenRouteServiceAPIKey), profile);
+
                 // ... and start the calculate asynchronously in background.
                 new RouteCalculator(this, start, destination, roadManager).execute();
                 return;
