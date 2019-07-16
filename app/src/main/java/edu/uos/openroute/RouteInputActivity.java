@@ -65,20 +65,22 @@ public class RouteInputActivity extends AppCompatActivity {
 
         public void onClick(View view) {
             // Parse the given positions
-            Position start = this.activity.start.getPosition();
-            Position destination = this.activity.destination.getPosition();
+            Position start = activity.start.getPosition();
+            Position destination = activity.destination.getPosition();
 
             // Check the positions for validity ...
             if (start == null) {
                 Toast.makeText(activity, R.string.start_invalid, LENGTH_SHORT).show();
             } else if (destination == null) {
                 Toast.makeText(activity, R.string.destination_invalid, LENGTH_SHORT).show();
+            } else if(start.distance(destination) < 0.0001) {
+                Toast.makeText(activity, R.string.distance_invalid, LENGTH_SHORT).show();
             } else {
                 // ... and start the route calculation.
                 Intent viewIntent = new Intent(activity, RouteCalculationActivity.class);
                 viewIntent.putExtra(RouteCalculationActivity.START, start);
                 viewIntent.putExtra(RouteCalculationActivity.DESTINATION, destination);
-                viewIntent.putExtra(RouteCalculationActivity.PROFILE, this.activity.profile.getProfile());
+                viewIntent.putExtra(RouteCalculationActivity.PROFILE, activity.profile.getProfile());
                 activity.startActivityForResult(viewIntent, CALCULATION_REQUEST_CODE);
             }
         }

@@ -17,6 +17,7 @@
     <string name="no">No</string>
     <string name="start_invalid">The position of the start is invalid.</string>
     <string name="destination_invalid">The position of the destination is invalid.</string>
+    <string name="distance_invalid">The distance is too small. Please specify more distant positions.</string>
     <string name="step">Step %1$d of %2$d</string>
     <string name="profile">Profile</string>
 </resources>
