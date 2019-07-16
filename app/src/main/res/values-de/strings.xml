@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="start">Start</string>
+    <string name="destination">Ziel</string>
+    <string name="calculate">Navigiere mich!</string>
+    <string name="latitude">Breitengrad</string>
+    <string name="longitude">Längengrad</string>
+    <string name="calculation_failed">Berechnung der Route fehlgeschagen. Besteht eine Internetverbindung? Ist der
+        API-Key gültig?
+    </string>
+    <string name="marker">Länge: %1$s; Breite: %2$s</string>
+    <string name="set_start">Setze aktuelle Position als Start</string>
+    <string name="set_destination">Setze aktuelle Position als Ziel</string>
+    <string name="location_not_available">Localisierung ist nicht verfügbar.</string>
+    <string name="location_denied">Der Nutzer hat die Lokalisierung nicht erlaubt.</string>
+    <string name="permission_reason_title">Grund der Nachfrage</string>
+    <string name="permission_reason_text">Diese App benötigt Zugriff auf Ihren Standort, um die aktuelle Position
+        herasuzufinden. Möchten Sie das erlauben?
+    </string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="start_invalid">Der Startpunkt ist ungültig.</string>
+    <string name="destination_invalid">Das Ziel ist ungültig.</string>
+    <string name="distance_invalid">Die Distanz zwischen den beiden Punkten ist zu klein.</string>
+    <string name="route_overview">Route: %1$.2f Kilometer (%2$.2f Minuten)</string>
+    <string name="step">Schritt %1$d von %2$d</string>
+    <string name="profile">Profil</string>
+</resources>

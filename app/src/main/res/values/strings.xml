@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OpenRoute</string>
+    <string name="app_name" translatable="false">OpenRoute</string>
     <string name="start">Start</string>
     <string name="destination">Destination</string>
     <string name="latitude">Latitude</string>
