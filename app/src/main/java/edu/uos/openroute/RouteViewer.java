@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 import edu.uos.openroute.util.Position;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
@@ -61,6 +62,9 @@ public class RouteViewer extends AppCompatActivity implements MapView.OnFirstLay
 
         // Create all the markers of the route to the map
         this.drawRoute();
+
+        // Show a route summary
+        Toast.makeText(this, getString(R.string.route_overview, this.road.mLength, this.road.mDuration / 60), Toast.LENGTH_LONG).show();
     }
 
     /**
