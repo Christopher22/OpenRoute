@@ -79,7 +79,8 @@ public class RouteCalculationActivity extends AppCompatActivity {
         protected void onPostExecute(Road road) {
             // If the calculation was not successful ...
             if (road == null) {
-                // ... return to the previous activity ...
+                // ... return to the previous activity with indication that there was a problem ...
+                this.activity.setResult(-1);
                 this.activity.finish();
                 this.activity = null;
                 return;

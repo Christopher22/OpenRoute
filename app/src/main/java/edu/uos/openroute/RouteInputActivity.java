@@ -3,6 +3,7 @@ package edu.uos.openroute;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -17,6 +18,9 @@ import static android.widget.Toast.LENGTH_SHORT;
  * This activity provides parameters and helpers for calculating a custom route.
  */
 public class RouteInputActivity extends AppCompatActivity {
+
+    // Constant used to mark the specific request
+    private static final int CALCULATION_REQUEST_CODE = 42;
 
     private CoordinateControl start, destination;
     private ProfileSpinner profile;
@@ -39,6 +43,14 @@ public class RouteInputActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         // Redirect the permission events to the global permission controller
         LocationAccess.handlePermissionRequest(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        // Show an error if the calculation was not successful.
+        if (requestCode == CALCULATION_REQUEST_CODE && resultCode < 0) {
+            Toast.makeText(this, R.string.calculation_failed, Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
@@ -67,7 +79,7 @@ public class RouteInputActivity extends AppCompatActivity {
                 viewIntent.putExtra(RouteCalculationActivity.START, start);
                 viewIntent.putExtra(RouteCalculationActivity.DESTINATION, destination);
                 viewIntent.putExtra(RouteCalculationActivity.PROFILE, this.activity.profile.getProfile());
-                activity.startActivity(viewIntent);
+                activity.startActivityForResult(viewIntent, CALCULATION_REQUEST_CODE);
             }
         }
     }
