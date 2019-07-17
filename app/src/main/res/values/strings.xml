@@ -21,4 +21,7 @@
     <string name="route_overview">Route: %1$.2f kilometers (%2$.2f minutes)</string>
     <string name="step">Step %1$d of %2$d</string>
     <string name="profile">Profile</string>
+    <string name="car">Car</string>
+    <string name="bicycle">Bike</string>
+    <string name="walking">Walking</string>
 </resources>

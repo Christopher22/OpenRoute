@@ -1,5 +1,6 @@
 package edu.uos.openroute.routing;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +18,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -124,7 +126,7 @@ public class OpenRouteServiceManager extends RoadManager {
             // Include (english) instructions and maneuvers and set kilometers as unit.
             request.put("instructions", true);
             request.put("instructions_format", "text");
-            request.put("language", "en");
+            request.put("language", Language.currentLanguage().toString());
             request.put("maneuvers", true);
             request.put("units", "km");
 
@@ -216,7 +218,7 @@ public class OpenRouteServiceManager extends RoadManager {
         BICYCLE("cycling-regular"),
         WALKING("foot-walking");
 
-        private String code;
+        private final String code;
 
         Profile(String code) {
             this.code = code;
@@ -230,6 +232,46 @@ public class OpenRouteServiceManager extends RoadManager {
          */
         public URL getEndpoint() throws MalformedURLException {
             return new URL(String.format("https://api.openrouteservice.org/v2/directions/%s/json", this.code));
+        }
+    }
+
+    /**
+     * An enum with supported languages for routing directions.
+     */
+    public enum Language {
+        ENGLISH("en"),
+        GERMAN("de"),
+        FRENCH("fr"),
+        SPANISH("es");
+
+        private final String code;
+
+        Language(String code) {
+            this.code = code;
+        }
+
+        /**
+         * Returns the currently used language on the system.
+         *
+         * @return the currently used language on the system or English otherwise.
+         */
+        public static Language currentLanguage() {
+            // Get current language
+            String currentLanguage = Locale.getDefault().getLanguage();
+
+            // Search for appropriate language and return English otherwise.
+            for (Language language : Language.class.getEnumConstants()) {
+                if (language.code.equals(currentLanguage)) {
+                    return language;
+                }
+            }
+            return Language.ENGLISH;
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return code;
         }
     }
 }
