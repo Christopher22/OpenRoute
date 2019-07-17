@@ -36,7 +36,30 @@ public class RouteInputActivity extends AppCompatActivity {
         this.profile = new ProfileSpinner(this, R.id.spinner_profile);
 
         // Add the actual functionality
-        findViewById(R.id.btn_navigate).setOnClickListener(new CalculateRoute(this));
+        this.findViewById(R.id.btn_navigate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Parse the given positions
+                Position start = RouteInputActivity.this.start.getPosition();
+                Position destination = RouteInputActivity.this.destination.getPosition();
+
+                // Check the positions for validity ...
+                if (start == null) {
+                    Toast.makeText(RouteInputActivity.this, R.string.start_invalid, LENGTH_SHORT).show();
+                } else if (destination == null) {
+                    Toast.makeText(RouteInputActivity.this, R.string.destination_invalid, LENGTH_SHORT).show();
+                } else if (start.distance(destination) < 0.0001) {
+                    Toast.makeText(RouteInputActivity.this, R.string.distance_invalid, LENGTH_SHORT).show();
+                } else {
+                    // ... and start the route calculation.
+                    Intent viewIntent = new Intent(RouteInputActivity.this, RouteCalculationActivity.class);
+                    viewIntent.putExtra(RouteCalculationActivity.START, start);
+                    viewIntent.putExtra(RouteCalculationActivity.DESTINATION, destination);
+                    viewIntent.putExtra(RouteCalculationActivity.PROFILE, RouteInputActivity.this.profile.getProfile());
+                    RouteInputActivity.this.startActivityForResult(viewIntent, CALCULATION_REQUEST_CODE);
+                }
+            }
+        });
     }
 
     @Override
@@ -50,39 +73,6 @@ public class RouteInputActivity extends AppCompatActivity {
         // Show an error if the calculation was not successful.
         if (requestCode == CALCULATION_REQUEST_CODE && resultCode < 0) {
             Toast.makeText(this, R.string.calculation_failed, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    /**
-     * A OneClickListener starting the route calculation with a reference to the parent activity.
-     */
-    private static class CalculateRoute implements View.OnClickListener {
-        private final RouteInputActivity activity;
-
-        public CalculateRoute(RouteInputActivity activity) {
-            this.activity = activity;
-        }
-
-        public void onClick(View view) {
-            // Parse the given positions
-            Position start = activity.start.getPosition();
-            Position destination = activity.destination.getPosition();
-
-            // Check the positions for validity ...
-            if (start == null) {
-                Toast.makeText(activity, R.string.start_invalid, LENGTH_SHORT).show();
-            } else if (destination == null) {
-                Toast.makeText(activity, R.string.destination_invalid, LENGTH_SHORT).show();
-            } else if(start.distance(destination) < 0.0001) {
-                Toast.makeText(activity, R.string.distance_invalid, LENGTH_SHORT).show();
-            } else {
-                // ... and start the route calculation.
-                Intent viewIntent = new Intent(activity, RouteCalculationActivity.class);
-                viewIntent.putExtra(RouteCalculationActivity.START, start);
-                viewIntent.putExtra(RouteCalculationActivity.DESTINATION, destination);
-                viewIntent.putExtra(RouteCalculationActivity.PROFILE, activity.profile.getProfile());
-                activity.startActivityForResult(viewIntent, CALCULATION_REQUEST_CODE);
-            }
         }
     }
 }
