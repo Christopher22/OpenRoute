@@ -1,10 +1,12 @@
 package edu.uos.openroute;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import edu.uos.openroute.util.Position;
 import org.osmdroid.bonuspack.routing.Road;
@@ -62,6 +64,16 @@ public class RouteViewer extends AppCompatActivity implements MapView.OnFirstLay
 
         // Create all the markers of the route to the map
         this.drawRoute();
+
+        // Add functionality to the button for all instructions
+        ((Button)this.findViewById(R.id.btn_show_instructions)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent viewIntent = new Intent(RouteViewer.this, RouteInstructions.class);
+                viewIntent.putExtra(RouteViewer.ROAD, road);
+                RouteViewer.this.startActivity(viewIntent);
+            }
+        });
 
         // Show a route summary
         Toast.makeText(this, getString(R.string.route_overview, this.road.mLength, this.road.mDuration / 60), Toast.LENGTH_LONG).show();

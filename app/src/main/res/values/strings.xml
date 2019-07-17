@@ -5,14 +5,17 @@
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
     <string name="calculate">Navigate!</string>
-    <string name="calculation_failed">Unable to calculate the route. Are you online? Are you using an valid API key?</string>
+    <string name="calculation_failed">Unable to calculate the route. Are you online? Are you using an valid API key?
+    </string>
     <string name="marker">Latitude: %1$s\nLongitude: %2$s</string>
     <string name="set_start">Set current location as starting point</string>
     <string name="set_destination">Set current location as destination</string>
     <string name="location_not_available">Location services not available.</string>
     <string name="location_denied">Access of the location is not allowed by the user.</string>
     <string name="permission_reason_title">Reason for permission</string>
-    <string name="permission_reason_text">This app needs access to your location to fill your current location. Do you want to use that feature?</string>
+    <string name="permission_reason_text">This app needs access to your location to fill your current location. Do you
+        want to use that feature?
+    </string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="start_invalid">The position of the start is invalid.</string>
@@ -24,4 +27,6 @@
     <string name="car">Car</string>
     <string name="bicycle">Bike</string>
     <string name="walking">Walking</string>
+    <string name="show_instructions">Show instructions</string>
+    <string name="instructions">Instructions</string>
 </resources>

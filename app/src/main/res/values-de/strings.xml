@@ -28,4 +28,6 @@
     <string name="car">Auto</string>
     <string name="bicycle">Fahrrad</string>
     <string name="walking">Gehen</string>
+    <string name="show_instructions">Zeige Instruktionen</string>
+    <string name="instructions">Instruktionen</string>
 </resources>
